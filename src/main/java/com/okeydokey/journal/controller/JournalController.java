@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,10 +15,22 @@ public class JournalController {
     @Autowired
     JournalRepository journalRepository;
 
-    @RequestMapping(value="/journal", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @GetMapping(value="/journal", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public @ResponseBody
     List<Journal> getJournal() {
         return journalRepository.findAll();
+    }
+
+    @GetMapping(value="/journal/findBy/title/{title}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public @ResponseBody
+    List<Journal> findByTitle(@PathVariable String title) {
+        return journalRepository.findByTitle(title);
+    }
+
+    @PostMapping(value="/journal")
+    public @ResponseBody
+    Journal add(@RequestBody Journal journal) {
+        return journalRepository.save(journal);
     }
 
     @RequestMapping("/")

@@ -1,6 +1,10 @@
 package com.okeydokey.journal.domain;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -27,6 +31,7 @@ public class Journal {
     private Date created;
     private String summary;
 
+    @JsonIgnore
     @Transient
     private SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 
